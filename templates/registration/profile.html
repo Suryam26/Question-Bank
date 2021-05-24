@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <div class="card my-3">
+
+        <h2 class="card-header">{{ user.first_name }} {{ user.last_name }}</h2>
+
+        <div class="card-body">
+            <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined }}</p>
+            <p class="card-text"><strong>Last Login:</strong> {{ user.last_login }}</p>
+            
+        </div>
+
+        <div class="card-footer text-right">
+            <a href="{% url 'password_change' %}" class="btn btn-primary">Change My Password</a>
+        </div>
+    </div>
+
+{% endblock content %}
