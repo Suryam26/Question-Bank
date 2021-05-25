@@ -47,9 +47,11 @@ INSTALLED_APPS = [
 
     # 3rd Party
     'crispy_forms',
+    'smart_selects',
 
     # Local
     'accounts.apps.AccountsConfig',
+    'questions.apps.QuestionsConfig',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +137,11 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Custom User
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
@@ -146,6 +153,10 @@ LOGOUT_REDIRECT_URL = 'login'
 
 # Crispy Template
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# Smart Select
+USE_DJANGO_JQUERY = True
 
 
 # Email

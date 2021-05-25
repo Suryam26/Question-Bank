@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% for p in papers %}
+        <a href="{% url 'detail' p.id %}">
+            <h1>{{ p.subject }}</h1>
+        </a>
+        {% empty %}
+        <h4 class="my-4">No entries yet.</h4>
+    {% endfor %}
+
+{% endblock content %}
