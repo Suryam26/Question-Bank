@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+
 {% block content %}
 
-    <form method="post" enctype="multipart/form-data">
+    <style>
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+
+    <h1>
+        {% block heading %}
+            New Paper
+        {% endblock heading %}
+    </h1>
+    <hr>
+
+    <form method="post" enctype="multipart/form-data" class="my-4">
         {% csrf_token %}
         {{ form.media.js }}
         {{ form|crispy }}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url 'create' %}" class="btn btn-success">
+        <i class="fa fa-plus"></i> Add Paper
+    </a>
+
+    {% include 'searchbar.html' %}
+
+    {% for p in mylist %}
+        <div class="card my-3">
+
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{ p.subject }}
+                    <span class="badge badge-pill badge-info">{{ p.branch }}</span>
+                </h4>
+                <h5>
+                    <span class="badge badge-pill badge-info">{{ p.exam }}</span>
+                    <span class="badge badge-pill badge-info">{{ p.year }}</span>
+                    <span class="badge badge-pill badge-info">{{ p.semester }} Sem</span>
+                </h5>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-lg-6 text-muted">
+                        <em> {{ p.updated_at }}</em>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <a href="{% url 'update' p.id%}" class="btn btn-primary">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
+                        <a href="{% url 'delete' p.id%}" class="btn btn-danger">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
+                        <a href="{{ paper.url }}" class="btn btn-info" download>
+                            <i class="fa fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% empty %}
+
+    <h4 class="my-4">No entries yet.</h4>
+
+    {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1>Confirm delete</h1>
+    <hr>
+
+    <form method="post" class="my-4">
+        {% csrf_token %}
+        <p>Are you sure you want to delete the 
+            <strong>{{ paper.exam }}</strong> question paper for the subject 
+            <strong>"{{ paper.subject }}"</strong> of year
+            <strong>{{ paper.year }} ({{paper.semester }} sem)?</strong>
+        </p>
+        <a href="{% url 'mylist' %}" class="btn btn-secondary">Cancle</a>
+        <button class="btn btn-danger" type="submit">Confirm</button>
+    </form>
+
+{% endblock content %}

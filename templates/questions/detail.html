@@ -3,6 +3,26 @@
 
 {% block content %}
 
-<h1>{{ paper.subject }}</h1>
+    <div class="card my-3">
+
+        <div class="card-body">
+            <h2 class="card-title">
+                {{ paper.subject }}
+                <small>
+                    <span class="badge badge-pill badge-info">{{ paper.branch }}</span>
+                </small>
+            </h2>
+            <h5>
+                <span class="badge badge-pill badge-info">{{ paper.exam }}</span>
+                <span class="badge badge-pill badge-info">{{ paper.year }}</span>
+                <span class="badge badge-pill badge-info">{{ paper.semester }} Sem</span>
+            </h5>
+        </div>
+
+        <div class="card-footer text-right">
+            <a href="{% url 'home' %}" class="">Go back to home</a>
+        </div>
+
+    </div>
 
 {% endblock content %}

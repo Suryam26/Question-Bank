@@ -3,12 +3,51 @@
 
 {% block content %}
 
+    <a href="{% url 'create' %}" class="btn btn-success">
+        <i class="fa fa-plus"></i> Add Paper
+    </a>
+    <a href="{% url 'mylist' %}" class="btn btn-info">
+        <i class="fa fa-list"></i> My Uploads
+    </a>
+
+    {% include 'searchbar.html' %}
+
     {% for p in papers %}
-        <a href="{% url 'detail' p.id %}">
-            <h1>{{ p.subject }}</h1>
-        </a>
+        <div class="card my-3">
+
+            <a data-toggle="collapse" href="#detailCard{{ p.id }}" role="button" aria-expanded="false" aria-controls="detailCard{{ p.id }}">
+                <div class="card-header p-4 h5">
+                    {{ p.year }}
+                    <i class="fa fa-chevron-down fa-xs"></i>
+                </div>
+            </a>
+
+            <div class="collapse" id="detailCard{{ p.id }}">
+
+                <div class="card-body">
+                        <h4 class="card-title">
+                            {{ p.subject }}
+                            <span class="badge badge-pill badge-info">{{ p.branch }}</span>
+                        </h4>
+                        <h5>
+                            <span class="badge badge-pill badge-info">{{ p.exam }}</span>
+                            <span class="badge badge-pill badge-info">{{ p.year }}</span>
+                            <span class="badge badge-pill badge-info">{{ p.semester }} Sem</span>
+                        </h5>
+                        <div class="text-right">
+                            <a href="{{ p.paper.url }}" class="btn btn-info" download>
+                                Download  <i class="fa fa-download"></i>
+                            </a>
+                        </div>
+                </div>
+
+            </div>
+
+        </div>
         {% empty %}
+
         <h4 class="my-4">No entries yet.</h4>
+
     {% endfor %}
 
 {% endblock content %}
