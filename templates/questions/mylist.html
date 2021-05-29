@@ -38,7 +38,7 @@
                         <a href="{% url 'delete' p.id%}" class="btn btn-danger">
                             <i class="fa fa-trash"></i> Delete
                         </a>
-                        <a href="{{ paper.url }}" class="btn btn-info" download>
+                        <a href="{{ p.paper.url }}" class="btn btn-info" download>
                             <i class="fa fa-download"></i> Download
                         </a>
                     </div>
