@@ -24,6 +24,7 @@ class Subject(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
     subject_code = models.CharField(unique=True, max_length=10)
     subject_name = models.CharField(unique=True, max_length=256)
+    subject_name_short = models.CharField(unique=True, max_length=5)
 
     def __str__(self):
         return self.subject_name

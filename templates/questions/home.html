@@ -12,35 +12,37 @@
 
     {% include 'searchbar.html' %}
 
-    {% for p in papers %}
+    {% for year, paper in papers %}
         <div class="card my-3">
 
-            <a data-toggle="collapse" href="#detailCard{{ p.id }}" role="button" aria-expanded="false" aria-controls="detailCard{{ p.id }}">
+            <a data-toggle="collapse" href="#detailCard{{ year }}" role="button" aria-expanded="false" aria-controls="detailCard{{ year }}">
                 <div class="card-header p-4 h5">
-                    {{ p.year }}
+                    {{ year }}
                     <i class="fa fa-chevron-down fa-xs"></i>
                 </div>
             </a>
 
-            <div class="collapse" id="detailCard{{ p.id }}">
-
-                <div class="card-body">
+            <div class="collapse" id="detailCard{{ year }}">
+            {% for p in paper %}
+                <div class="card m-3">
+                    <div class="card-body">
                         <h4 class="card-title">
-                            {{ p.subject }}
-                            <span class="badge badge-pill badge-info">{{ p.branch }}</span>
+                            {{ p.subject__subject_name }}
+                            <span class="badge badge-pill badge-info">{{ p.branch__name }}</span>
                         </h4>
                         <h5>
                             <span class="badge badge-pill badge-info">{{ p.exam }}</span>
                             <span class="badge badge-pill badge-info">{{ p.year }}</span>
                             <span class="badge badge-pill badge-info">{{ p.semester }} Sem</span>
                         </h5>
-                        <div class="text-right">
-                            <a href="{{ p.paper.url }}" class="btn btn-info" download>
-                                Download  <i class="fa fa-download"></i>
-                            </a>
-                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <a href="{{ p.paper }}" class="btn btn-info" download>
+                            Download <i class="fa fa-download"></i>
+                        </a>
+                    </div>
                 </div>
-
+            {% endfor %}
             </div>
 
         </div>
