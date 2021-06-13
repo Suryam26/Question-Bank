@@ -1,3 +1,4 @@
+import uuid
 import datetime
 from django.db import models
 from django.urls import reverse
@@ -31,8 +32,9 @@ class Subject(models.Model):
 
 
 class QuestionPaper(models.Model):
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
     subject = ChainedForeignKey(
         Subject,
         on_delete=models.CASCADE,
@@ -83,7 +85,7 @@ class QuestionPaper(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['subject', 'year', 'semester', 'exam'],
+                fields=['branch', 'subject', 'year', 'semester', 'exam'],
                 name='unique paper'
             ),
         ]
