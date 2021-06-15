@@ -4,14 +4,11 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
+from django.contrib.postgres.search import SearchVectorField
 from smart_selects.db_fields import ChainedForeignKey
 
-from .choices import SEMESTER_CHOICES, EXAM_CHOICES
-
-
-def filePath(instance, filename):
-    filename = f"{instance.subject}_{instance.year}_{instance.semester}_{instance.exam}.pdf"
-    return f'files/{filename}'
+from .choices import SEMESTER_CHOICES
+from .model_manager import QuestionPaperManager, filePath
 
 
 class Branch(models.Model):
@@ -24,11 +21,20 @@ class Branch(models.Model):
 class Subject(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
     subject_code = models.CharField(unique=True, max_length=10)
-    subject_name = models.CharField(unique=True, max_length=256)
-    subject_name_short = models.CharField(unique=True, max_length=5)
+    subject_name = models.CharField(max_length=256)
+    subject_name_short = models.CharField(max_length=5)
 
     def __str__(self):
         return self.subject_name
+
+
+class Exam(models.Model):
+    name = models.CharField(max_length=7)
+    name_1 = models.CharField(max_length=7)
+    name_2 = models.CharField(max_length=7)
+
+    def __str__(self):
+        return self.name
 
 
 class QuestionPaper(models.Model):
@@ -53,11 +59,7 @@ class QuestionPaper(models.Model):
         choices=SEMESTER_CHOICES,
         default='ODD',
     )
-    exam = models.CharField(
-        max_length=7,
-        choices=EXAM_CHOICES,
-        default='MST-1',
-    )
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
 
     paper = models.FileField(
         upload_to=filePath,
@@ -71,6 +73,18 @@ class QuestionPaper(models.Model):
 
     uploaded_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    search_vector = SearchVectorField(null=True)
+
+    objects = QuestionPaperManager()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if ("update_fields" not in kwargs or "search_vector" not in kwargs["update_fields"]):
+            instance = (
+                self._meta.default_manager.with_documents().get(pk=self.pk))
+            instance.search_vector = instance.document
+            instance.save(update_fields=["search_vector"])
 
     def delete(self, *args, **kwargs):
         self.paper.delete()

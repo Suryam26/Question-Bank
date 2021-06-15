@@ -1,9 +1,9 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.db.models import Q
 
 from .models import QuestionPaper
+from .query_set import set_builder
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -14,19 +14,9 @@ class HomeView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         filter_set = self.model.objects.all()
         if self.request.GET.get('search'):
-            search = self.request.GET.get('search')
-            query = Q(subject__subject_name__icontains=search) | Q(
-                subject__subject_name_short__icontains=search)
-            filter_set = self.model.objects.filter(query)
-
-        query_set = filter_set.values(
-            'branch__name', 'subject__subject_name', 'exam', 'year', 'semester', 'paper',).order_by('-year')
-        papers = {}
-        for i in query_set:
-            if i['year'] not in papers:
-                papers[i['year']] = []
-            papers[i['year']].append(i)
-        return papers.items()
+            search_text = self.request.GET.get('search')
+            filter_set = self.model.objects.search(search_text)
+        return set_builder(filter_set)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -60,11 +50,8 @@ class MyListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         filter_set = self.model.objects.all()
         if self.request.GET.get('search'):
-            search = self.request.GET.get('search')
-            query = Q(subject__subject_name__icontains=search) | Q(
-                subject__subject_name_short__icontains=search)
-            filter_set = self.model.objects.filter(query)
-
+            search_text = self.request.GET.get('search')
+            filter_set = self.model.objects.search(search_text)
         return filter_set.filter(author=self.request.user).order_by('-updated_at')
 
     def get_context_data(self, **kwargs):

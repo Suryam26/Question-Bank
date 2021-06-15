@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import QuestionPaper, Branch, Subject
+from .models import QuestionPaper, Branch, Exam, Subject
 
 
 class BranchAdmin(admin.ModelAdmin):
@@ -8,7 +8,12 @@ class BranchAdmin(admin.ModelAdmin):
 
 
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ['subject_name', 'subject_code', 'branch', ]
+    list_display = ['subject_name',
+                    'subject_name_short', 'subject_code', 'branch', ]
+
+
+class ExamAdmin(admin.ModelAdmin):
+    list_display = ['name', 'name_1', 'name_2', ]
 
 
 class QuestionPaperAdmin(admin.ModelAdmin):
@@ -17,4 +22,5 @@ class QuestionPaperAdmin(admin.ModelAdmin):
 
 admin.site.register(Branch, BranchAdmin)
 admin.site.register(Subject, SubjectAdmin)
+admin.site.register(Exam, ExamAdmin)
 admin.site.register(QuestionPaper, QuestionPaperAdmin)
