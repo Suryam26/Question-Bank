@@ -10,8 +10,6 @@ To run this project first download [Docker](https://www.docker.com/products/dock
 
 ## Starting the Project
 
----
-
 Once 'Docker-Daemon' is up and running navigate to the project directory and in the terminal run:
 
 ```bash
@@ -36,8 +34,6 @@ To access the website visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
 ## Checking Logs
 
----
-
 To check the server logs for errors use:
 
 ```bash
@@ -46,8 +42,6 @@ $ docker-compose logs
 
 ## Stopping the Development Server
 
----
-
 To stop the development server and the docker container run:
 
 ```bash
@@ -55,8 +49,6 @@ $ docker-compose down
 ```
 
 ## Run Commands
-
----
 
 To run commands inside the docker container use:
 
@@ -73,8 +65,6 @@ $ docker-compose exec web python manage.py test
 ```
 
 ## Google OAuth
-
----
 
 This project support Google OAuth for logins using the 'django-allauth' application.
 
