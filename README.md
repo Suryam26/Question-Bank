@@ -56,7 +56,7 @@ To run commands inside the docker container use:
 $ docker-compose exec web [COMMAND]
 ```
 
-Here `[COMMAND]` is a could be a Django command or a python command.
+Here `[COMMAND]` could be a Django, python or bash command.
 
 For example:
 
