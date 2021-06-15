@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
 
@@ -17,16 +18,13 @@
                     <a class="nav-link active" href="{% url 'profile' %}">Hi, {{ user.first_name }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                    <a class="nav-link active" href="{% url 'account_logout' %}">Logout</a>
                 </li>
 
                 {% else %}
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'signup' %}">Signup</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link active" href="{% provider_login_url 'google' %}">Login</a>
                 </li>
 
                 {% endif %}

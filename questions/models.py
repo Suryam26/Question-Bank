@@ -2,6 +2,7 @@ import uuid
 import datetime
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
 from django.contrib.postgres.search import SearchVectorField
@@ -95,6 +96,10 @@ class QuestionPaper(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', args=[str(self.id)])
+
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=7) <= self.uploaded_at <= now
 
     class Meta:
         constraints = [

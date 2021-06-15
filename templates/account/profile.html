@@ -13,12 +13,8 @@
             <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
             <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined }}</p>
             <p class="card-text"><strong>Last Login:</strong> {{ user.last_login }}</p>
-            
         </div>
-
-        <div class="card-footer text-right">
-            <a href="{% url 'password_change' %}" class="btn btn-primary">Change My Password</a>
-        </div>
+        
     </div>
 
 {% endblock content %}

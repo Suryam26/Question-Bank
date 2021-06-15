@@ -3,15 +3,19 @@
 
 {% block content %}
 
-    <a href="{% url 'home' %}" class="btn btn-info">
-        <i class="fa fa-home"></i> Home
-    </a>
-    <a href="{% url 'mylist' %}" class="btn btn-outline-info">
-        <i class="fa fa-list"></i> My Uploads
-    </a>
-    <a href="{% url 'create' %}" class="btn btn-success">
-        <i class="fa fa-plus"></i> Add Paper
-    </a>
+    {% if user.is_authenticated %}
+        <div class="mb-3">
+            <a href="{% url 'home' %}" class="btn btn-info">
+                <i class="fa fa-home"></i> Home
+            </a>
+            <a href="{% url 'mylist' %}" class="btn btn-outline-info">
+                <i class="fa fa-list"></i> My Uploads
+            </a>
+            <a href="{% url 'create' %}" class="btn btn-success">
+                <i class="fa fa-plus"></i> Add Paper
+            </a>
+        </div>
+    {% endif %}
 
     {% include 'searchbar.html' %}
 
