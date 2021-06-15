@@ -1,6 +1,6 @@
 # Question Bank
 
-This a Django based responsive web application that is used for storing question-papers for an instituted. It is powerd by PostgreSQL Full-Text-Search for quick and powerfull searchs.
+This a Django based responsive web application that is used for storing question papers for an institute. It is powered by PostgreSQL Full-Text-Search for quick and powerful searches.
 
 # Installation
 
