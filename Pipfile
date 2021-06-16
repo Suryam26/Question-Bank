@@ -11,6 +11,8 @@ django-smart-selects = "*"
 psycopg2-binary = "*"
 environs = {extras = ["django"], version = "*"}
 django-allauth = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 

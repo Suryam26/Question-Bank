@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # admin
-    path('admin/', admin.site.urls),
+    path('this-is-not-admin/', admin.site.urls),
 
     # Smart Select
     path('chaining/', include('smart_selects.urls')),
