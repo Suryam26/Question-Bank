@@ -97,10 +97,6 @@ class QuestionPaper(models.Model):
     def get_absolute_url(self):
         return reverse('detail', args=[str(self.id)])
 
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=7) <= self.uploaded_at <= now
-
     class Meta:
         constraints = [
             models.UniqueConstraint(

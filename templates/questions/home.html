@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load new_tags %}
 
 
 {% block content %}
@@ -6,13 +7,13 @@
     {% if user.is_authenticated %}
         <div class="mb-3">
             <a href="{% url 'home' %}" class="btn btn-info">
-                <i class="fa fa-home"></i> Home
+                <i class="fa fa-home"></i> <span class="d-none d-sm-inline">Home</span> 
             </a>
             <a href="{% url 'mylist' %}" class="btn btn-outline-info">
-                <i class="fa fa-list"></i> My Uploads
+                <i class="fa fa-list"></i> <span class="d-none d-sm-inline">My Uploads</span> 
             </a>
             <a href="{% url 'create' %}" class="btn btn-success">
-                <i class="fa fa-plus"></i> Add Paper
+                <i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Add Paper</span> 
             </a>
         </div>
     {% endif %}
@@ -33,9 +34,15 @@
             {% for p in paper %}
                 <div class="card m-3">
                     <div class="card-body">
+
+                        {% is_new p.uploaded_at as was_published_recently %}
+                        {% if was_published_recently %}
+                            <span class="badge badge-pill badge-danger">NEW</span>
+                        {% endif %}
+                        
                         <h4 class="card-title">
-                            {{ p.subject__subject_name }}
                             <span class="badge badge-pill badge-info">{{ p.branch__name }}</span>
+                            {{ p.subject__subject_name }}
                         </h4>
                         <h5>
                             <span class="badge badge-pill badge-info">{{ p.exam__name }}</span>

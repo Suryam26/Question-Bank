@@ -1,16 +1,25 @@
 {% extends 'base.html' %}
+{% load new_tags %}
 
 
 {% block content %}
 
+    {% include 'questions/navigation.html' %}
+
     <div class="card my-3">
 
         <div class="card-body">
+
+            {% is_new paper.uploaded_at as was_published_recently %}
+            {% if was_published_recently %}
+                <span class="badge badge-pill badge-danger">NEW</span>
+            {% endif %}
+
             <h2 class="card-title">
-                {{ paper.subject }}
                 <small>
                     <span class="badge badge-pill badge-info">{{ paper.branch }}</span>
                 </small>
+                {{ paper.subject }}
             </h2>
             <h5>
                 <span class="badge badge-pill badge-info">{{ paper.exam }}</span>

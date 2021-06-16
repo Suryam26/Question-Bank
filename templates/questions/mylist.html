@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load new_tags %}
 
 
 {% block content %}
 
     <div class="mb-3">
         <a href="{% url 'home' %}" class="btn btn-outline-info">
-            <i class="fa fa-home"></i> Home
+            <i class="fa fa-home"></i> <span class="d-none d-sm-inline">Home</span>
         </a>
         <a href="{% url 'mylist' %}" class="btn btn-info">
-            <i class="fa fa-list"></i> My Uploads
+            <i class="fa fa-list"></i> <span class="d-none d-sm-inline">My Uploads</span>
         </a>
         <a href="{% url 'create' %}" class="btn btn-success">
-            <i class="fa fa-plus"></i> Add Paper
+            <i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Add Paper</span>
         </a>
     </div>
 
@@ -21,12 +22,13 @@
         <div class="card my-3">
 
             <div class="card-body">
+                {% is_new p.uploaded_at as was_published_recently %}
+                {% if was_published_recently %}
+                    <span class="badge badge-pill badge-danger">NEW</span>
+                {% endif %}
                 <h4 class="card-title">
-                    {{ p.subject }}
                     <span class="badge badge-pill badge-info">{{ p.branch }}</span>
-                    {% if p.was_published_recently %}
-                        <span class="badge badge-pill badge-danger">NEW</span>
-                    {% endif %}
+                    {{ p.subject }}
                 </h4>
                 <h5>
                     <span class="badge badge-pill badge-info">{{ p.exam }}</span>
@@ -44,10 +46,10 @@
                     </div>
                     <div class="col-xl-6 my-2 my-md-0 text-right">
                         <a href="{% url 'update' p.id%}" class="btn btn-primary">
-                            <i class="fa fa-pencil"></i> Edit
+                            <i class="fa fa-pencil"></i> <span class="d-none d-sm-inline">Edit</span>
                         </a>
                         <a href="{% url 'delete' p.id%}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i> Delete
+                            <i class="fa fa-trash"></i> <span class="d-none d-sm-inline">Delete</span>
                         </a>
                         <a href="{{ p.paper.url }}" class="btn btn-info" download>
                             <i class="fa fa-download"></i> Download
